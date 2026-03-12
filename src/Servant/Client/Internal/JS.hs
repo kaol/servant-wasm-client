@@ -39,18 +39,18 @@ foreign import javascript "wrapper"
 -- { status, statusText, headers: Headers, body: ArrayBuffer }.
 -- statusText is captured before arrayBuffer() so it is available on both paths.
 foreign import javascript unsafe
-  "var __req = { method: $2, headers: $3, signal: $6 };\
+  "var __req = { method: $2, headers: $3, signal: $5 };\
   \if ($4 !== null) { __req.body = $4; }\
   \fetch($1, __req).then(function(r) {\
   \  var __status = r.status;\
   \  var __st = r.statusText;\
   \  var __hdrs = r.headers;\
   \  r.arrayBuffer().then(function(buf) {\
-  \    var __cb = (__status >= 200 && __status < 300) ? $7 : $8;\
+  \    var __cb = (__status >= 200 && __status < 300) ? $6 : $7;\
   \    __cb({ status: __status, statusText: __st, headers: __hdrs, body: buf });\
   \  });\
   \}).catch(function(e) {\
-  \  $8({ status: 0, statusText: '', headers: new Headers(), body: new ArrayBuffer() });\
+  \  $7({ status: 0, statusText: '', headers: new Headers(), body: new ArrayBuffer() });\
   \});"
   js_fetch
     :: JSVal   -- ^ URL
